@@ -23,7 +23,7 @@ export default function SignUp(props: Props) {
 
   const { setAthView } = props;
 
-  const signUpHandler = () => {
+  const signUpHandler = async () => {
     const data = {
       userEmail,
       userPassword,
@@ -33,10 +33,20 @@ export default function SignUp(props: Props) {
       userAddress,
       userAddressDetail,
     };
-    axios
-      .post("http://localhost:4000/api/auth/signUp", data)
-      .then((response) => {})
-      .catch((error) => {});
+
+    const signUpResponse = await signUpApi(data);
+
+    if (!signUpResponse) {
+      alert("회원가입에 실패했습니다.");
+      return;
+    }
+
+    if (!signUpResponse.result) {
+      alert("회원가입에 실패했습니다.");
+      return;
+    }
+    alert("회원가입에 성공했습니다.");
+    setAthView(false);
   };
 
   return (

@@ -6,7 +6,7 @@ import SignUp from "./SignUp";
 
 export default function Athentication() {
   // athView : true - signUp / false -signIn
-  const [athView, setAthView] = useState<boolean>(true);
+  const [athView, setAthView] = useState<boolean>(false);
 
   return (
     <>

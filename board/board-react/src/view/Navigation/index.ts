@@ -6,8 +6,18 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import PersonIcon from "@mui/icons-material/Person";
+import { useUserStore } from "../../stores";
 
 export default function Naviation() {
+  const [cookies, setCookies] = useCookies();
+  const { user, removeUser } = useUserStore();
+
+  const logOutHandler = () => {
+    setCookies("token", "", { expires: new Data() });
+    removeUser();
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed">
@@ -24,7 +34,13 @@ export default function Naviation() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             News
           </Typography>
-          <Button color="inherit">Login</Button>
+          {user ? (
+            <IconButton color="inherit" onClick={() => logOutHandler()}>
+              <PersonIcon />
+            </IconButton>
+          ) : (
+            <Button color="inherit">Login</Button>
+          )}
         </Toolbar>
       </AppBar>
     </Box>
